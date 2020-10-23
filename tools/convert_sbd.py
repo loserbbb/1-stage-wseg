@@ -29,6 +29,7 @@ def convert(opts):
 
     # searching for files .mat
     opts.inp = opts.inp + ("" if opts.inp[-1] == "/" else "/")
+    print(opts.inp)
     filelist = glob.glob(opts.inp + "*.mat")
     print("Found {:d} files".format(len(filelist)))
 

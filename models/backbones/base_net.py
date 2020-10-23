@@ -28,6 +28,7 @@ class Normalize():
 
         return proc_img
 
+
 class BaseNet(nn.Module):
 
     def __init__(self):

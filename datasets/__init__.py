@@ -2,7 +2,8 @@ from torch.utils import data
 from .pascal_voc import VOCSegmentation
 
 datasets = {
-    'pascal_voc': VOCSegmentation
+    'pascal_voc': VOCSegmentation,
+    # 'tn_scui': TN
 }
 
 def get_num_classes(args):
@@ -12,6 +13,7 @@ def get_class_names(args):
     return datasets[args.dataset.lower()].CLASSES
 
 def get_dataloader(args, cfg, split, batch_size=None, test_mode=None):
+    # train:train_augvoc ; train_voc:train_voc; val:val_voc
     assert split in ('train', 'train_voc', 'val'), "Unknown split '{}'".format(split)
 
     dataset_name = args.dataset.lower()

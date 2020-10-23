@@ -14,6 +14,7 @@ from models.mods import PAMR
 from models.mods import StochasticGate
 from models.mods import GCI
 
+
 #
 # Helper classes
 #
@@ -22,8 +23,10 @@ def rescale_as(x, y, mode="bilinear", align_corners=True):
     x = F.interpolate(x, size=[h, w], mode=mode, align_corners=align_corners)
     return x
 
-def focal_loss(x, p = 1, c = 0.1):
+
+def focal_loss(x, p=1, c=0.1):
     return torch.pow(1 - x, p) * torch.log(c + x)
+
 
 def pseudo_gtmask(mask, cutoff_top=0.6, cutoff_low=0.2, eps=1e-8):
     """Convert continuous mask into binary mask"""
@@ -46,7 +49,8 @@ def pseudo_gtmask(mask, cutoff_top=0.6, cutoff_low=0.2, eps=1e-8):
     ambiguous = (pseudo_gt.sum(1, keepdim=True) > 1).type_as(mask)
     pseudo_gt = (1 - ambiguous) * pseudo_gt
 
-    return pseudo_gt.view(bs,c,h,w)
+    return pseudo_gt.view(bs, c, h, w)
+
 
 def balanced_mask_loss_ce(mask, pseudo_gt, gt_labels, ignore_index=255):
     """Class-balanced CE loss
@@ -85,9 +89,11 @@ def balanced_mask_loss_ce(mask, pseudo_gt, gt_labels, ignore_index=255):
     loss = batch_weight * (class_weight * loss).mean(-1)
     return loss
 
+
 class Flatten(nn.Module):
     def forward(self, input):
         return input.view(input.size(0), -1)
+
 
 #
 # Dynamic change of the base class
